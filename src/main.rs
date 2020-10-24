@@ -43,6 +43,22 @@ impl TableViewItem<BasicColumn> for Programpost {
   }
 }
 
+fn show_programpost_details(s: &mut Cursive, row: usize, _index: usize) {
+    let content = match row {
+        0 => "Raggas aktivitetshjørne \n Ragnhild drar oss igjennom noen kule øvelser som garantert 100% får kropp og sinn i gang!",
+        1 => "Config \n Config tips'n tricks",
+        2 => "Gitttt \n Git is magic \n Magic is git",
+        3 => "Lønsjert  \n Digge smørbrød er alltid digg ",
+        4 => "Foredrag  \n Her kan vi legge inn URLs når vi finner ut hva vi vil se. Evt en slags (rask) poll? ",
+        5 => "Distribuert do's and don'ts  \n TBA ",
+        _ => "Random programpost som ikke fins"
+    };
+    s.pop_layer();
+    s.add_layer(Dialog::text(format!("{}", content))
+        .title(format!("{}'s info", row))
+        .button("Tilbake til programmet", |s| show_program(s)));
+}
+
 fn main() {
   // Creates the cursive root - required for every application.
   let mut siv = cursive::default();
@@ -101,18 +117,20 @@ fn show_program(s: &mut Cursive) {
   ];
 
   let mut table = TableView::<Programpost, BasicColumn>::new()
-    .column(BasicColumn::Tidspunkt, "Name", |c| {
+    .column(BasicColumn::Tidspunkt, "Tidspunkt", |c| {
       c.width_percent(5).align(HAlign::Center)
     })
-    .column(BasicColumn::Tittel, "Count", |c| c.width_percent(10))
-    .column(BasicColumn::Beskrivelse, "Rate", |c| c);
+    .column(BasicColumn::Tittel, "Happening", |c| c.width_percent(10))
+    .column(BasicColumn::Beskrivelse, "Beskrivelse", |c| c);
 
   table.set_items(programposter);
+  table.set_on_submit(show_programpost_details);
 
   s.pop_layer();
   s.add_layer(
     LinearLayout::vertical()
       .child(Dialog::around(table.with_name("table").min_size((200, 20))).title("Program"))
+      .child(TextView::new("Trykk <Enter> for å se detaljer"))
       .child(TextView::new("Trykk <q> for å avslutte")),
   );
 }
