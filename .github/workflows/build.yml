@@ -18,14 +18,14 @@ jobs:
           override: true
 
       - name: Build
-        run: cargo build --all --release && strip target/release/fagdagprogram && mv target/release/fagdagprogram target/release/fagdagprogram_amd64
+        run: cargo build --all --release && strip target/release/faggruppefagdag-2020-program && mv target/release/faggruppefagdag-2020-program target/release/faggruppefagdag-2020-program_amd64
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            target/release/fagdagprogram_amd64
+            target/release/faggruppefagdag-2020-program_amd64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,7 +50,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: target/release/fagdagprogram.exe
+          files: target/release/faggruppefagdag-2020-program.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -70,13 +70,13 @@ jobs:
           override: true
 
       - name: Build for mac
-        run: cargo build --all --release && strip target/release/fagdagprogram && mv target/release/fagdagprogram target/release/fagdagprogram_darwin
+        run: cargo build --all --release && strip target/release/faggruppefagdag-2020-program && mv target/release/faggruppefagdag-2020-program target/release/faggruppefagdag-2020-program_darwin
 
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            target/release/fagdagprogram_darwin
+            target/release/faggruppefagdag-2020-program_darwin
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
