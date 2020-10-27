@@ -1,5 +1,3 @@
-// extern crate cursive_table_view;
-
 use cursive::align::HAlign;
 use cursive::traits::*;
 use cursive::views::{Dialog, LinearLayout, TextView};
@@ -12,7 +10,6 @@ use cursive_table_view::{TableView, TableViewItem};
 enum BasicColumn {
   Tidspunkt,
   Tittel,
-  Beskrivelse,
 }
 
 #[derive(Clone, Debug)]
@@ -27,7 +24,6 @@ impl TableViewItem<BasicColumn> for Programpost {
     match column {
       BasicColumn::Tidspunkt => self.tidspunkt.to_string(),
       BasicColumn::Tittel => self.tittel.to_string(),
-      BasicColumn::Beskrivelse => self.beskrivelse.to_string(),
     }
   }
 
@@ -38,7 +34,6 @@ impl TableViewItem<BasicColumn> for Programpost {
     match column {
       BasicColumn::Tidspunkt => self.tidspunkt.cmp(&other.tidspunkt),
       BasicColumn::Tittel => self.tittel.cmp(&other.tittel),
-      BasicColumn::Beskrivelse => self.beskrivelse.cmp(&other.beskrivelse),
     }
   }
 }
@@ -61,7 +56,7 @@ fn main() {
 }
 
 fn show_program(s: &mut Cursive) {
-  let programposter = vec![
+  let programposter = [
     Programpost {
       tidspunkt: String::from("09:00"),
       tittel: String::from("Start!"),
@@ -101,18 +96,28 @@ fn show_program(s: &mut Cursive) {
   ];
 
   let mut table = TableView::<Programpost, BasicColumn>::new()
-    .column(BasicColumn::Tidspunkt, "Name", |c| {
-      c.width_percent(5).align(HAlign::Center)
+    .column(BasicColumn::Tidspunkt, "Tidspunkt", |c| {
+      c.align(HAlign::Center)
     })
-    .column(BasicColumn::Tittel, "Count", |c| c.width_percent(10))
-    .column(BasicColumn::Beskrivelse, "Rate", |c| c);
+    .column(BasicColumn::Tittel, "Tittel", |c| c);
 
-  table.set_items(programposter);
+  table.set_items(programposter.to_vec());
+  table.set_on_submit(move |s_, _row, index| show_programpost_details(s_, &programposter[index]));
 
   s.pop_layer();
   s.add_layer(
     LinearLayout::vertical()
       .child(Dialog::around(table.with_name("table").min_size((200, 20))).title("Program"))
       .child(TextView::new("Trykk <q> for å avslutte")),
+  );
+}
+
+fn show_programpost_details(s: &mut Cursive, post: &Programpost) {
+  s.add_layer(
+    Dialog::text(format!("{}", &post.beskrivelse))
+      .title(&post.tittel)
+      .button("Tilbake til programmet", |s| {
+        s.pop_layer();
+      }),
   );
 }
