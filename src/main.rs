@@ -59,21 +59,21 @@ fn show_program(s: &mut Cursive) {
   let programposter = [
     Programpost {
       tidspunkt: String::from("09:00"),
-      tittel: String::from("Start!"),
-      beskrivelse: String::from("Oppvarmingsøvelse"),
+      tittel: String::from("Dagen starter"),
+      beskrivelse: String::from("Intro og oppvarming"),
     },
     Programpost {
       tidspunkt: String::from("09:30"),
-      tittel: String::from("Config"),
+      tittel: String::from("Config og triksing"),
       beskrivelse: String::from(
         "Vi ser gjennom config-filene våre og deler tips & tricks rundt terminal/shell og tooling",
       ),
     },
     Programpost {
-      tidspunkt: String::from("10:00"),
-      tittel: String::from("Gitttt"),
+      tidspunkt: String::from("10:30"),
+      tittel: String::from("Distribuert jobbing"),
       beskrivelse: String::from(
-        "Vi går sammen to og to og prøver oss på https://gitexercises.fracz.com/",
+        "Øyvind presenterer resultat fra spørreundersøkelsen, og så diskuterer vi rundt det",
       ),
     },
     Programpost {
@@ -84,14 +84,27 @@ fn show_program(s: &mut Cursive) {
     Programpost {
       tidspunkt: String::from("12:30"),
       tittel: String::from("Filmformiddag"),
-      beskrivelse: String::from("Vi ser på et par-tre foredrag sammen"),
+      beskrivelse: String::from("Vi ser på foredrag sammen"),
     },
     Programpost {
       tidspunkt: String::from("13:30"),
-      tittel: String::from("Distribuert jobbing"),
-      beskrivelse: String::from(
-        "Øyvind presenterer resultat fra spørreundersøkelsen, og så diskuterer vi rundt det",
-      ),
+      tittel: String::from("Git"),
+      beskrivelse: String::from("Vi prøver oss på https://gitexercises.fracz.com/"),
+    },
+    Programpost {
+      tidspunkt: String::from("15:00"),
+      tittel: String::from("Ekstern keynote"),
+      beskrivelse: String::from("Bekk-felles"),
+    },
+    Programpost {
+      tidspunkt: String::from("15:30"),
+      tittel: String::from("Underholdning"),
+      beskrivelse: String::from("I regi av Spirit"),
+    },
+    Programpost {
+      tidspunkt: String::from("16:30"),
+      tittel: String::from("Middag"),
+      beskrivelse: String::from("En deilig tre-retters servert av Kolonihagen"),
     },
   ];
 
